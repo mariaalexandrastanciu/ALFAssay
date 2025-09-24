@@ -70,7 +70,7 @@ def meta_data_Pearl():
     meta_survival_data["SampleID"]=meta_survival_data["SampleID_FP"].str.replace("_fragment_size_summary.csv","")
 
     meta_survival_data = meta_survival_data[["SampleID", "status", "BPFS"]]
-    meta_survival_data.to_csv("/Users/alexandra/PhD/PearlStudy/FragmentationPatterns/Pearl_survival.csv", sep="\t",
+    meta_survival_data.to_csv("/Users/alexandra/PhD/PearlStudy/FragmentationPatterns/Pearl_survival_bl_pd.csv", sep="\t",
                               index=False, header=True)
 
     pearl = pd.read_csv("/Users/alexandra/PhD/FragmentationPatterns/Data/MetaData/PearlStudyMetaData.csv", sep="\t")
@@ -92,31 +92,33 @@ def meta_data_Pearl():
 
 def meta_data_Pearl_new():
     print("Gather data for Pearl")
+    #
+    # fp_samples = pd.read_csv("/Users/alexandra/PhD/PearlStudy/FragmentationPatterns/fp_samples.csv", header=None)
+    # survival_data = pd.read_csv("/Users/alexandra/PhD/PearlStudy/pearl_followup.csv", sep=",")
+    # survival_data_dates = pd.read_csv("/Users/alexandra/PhD/PearlStudy/survivalInfo.csv", sep=",")
+    #
+    # survival_data_dates['FirstRecururenceDt'] = pd.to_datetime(survival_data_dates['FirstRecururenceDt'])
+    # survival_data_dates['FollowupDate'] = pd.to_datetime(survival_data_dates['FollowupDate'])
+    # survival_data_dates['DeathDate'] = pd.to_datetime(survival_data_dates['DeathDate'])
+    #
+    # fp_samples.columns=["SampleID"]
+    # fp_samples["SampleID"] = fp_samples["SampleID"].str.replace("_fragment_size_summary.csv", "")
+    # fp_samples["Patient"]=fp_samples["SampleID"].str[9:12].str.lstrip('0')
+    # fp_samples["Patient"] = fp_samples["Patient"].apply(int)
+    #
+    #
+    # survival_data["Patient"] = survival_data["id"].values
+    # survival_data["Patient"] = survival_data["Patient"].apply(int)
+    #
+    # meta_survival_data = pd.merge(fp_samples,survival_data, how="left", on="Patient")
+    # meta_survival_data["BPFS"] = meta_survival_data["PFStime"] * 12 * 30
+    # meta_survival_data["status"] = meta_survival_data["PFSevent"]
+    # meta_survival_data = meta_survival_data[["SampleID", "status", "BPFS"]]
+    # meta_survival_data["BPFS"] = meta_survival_data["BPFS"]*12*30
+    # meta_survival_data.to_csv("/Users/alexandra/PhD/PearlStudy/FragmentationPatterns/Pearl_survival_bl_pd.csv", sep=",",
+    #                           index=False, header=True)
 
-    fp_samples = pd.read_csv("/Users/alexandra/PhD/PearlStudy/FragmentationPatterns/fp_samples.csv", header=None)
-    survival_data = pd.read_csv("/Users/alexandra/PhD/PearlStudy/pearl_followup.csv", sep=",")
-    survival_data_dates = pd.read_csv("/Users/alexandra/PhD/PearlStudy/survivalInfo.csv", sep=",")
-
-    survival_data_dates['FirstRecururenceDt'] = pd.to_datetime(survival_data_dates['FirstRecururenceDt'])
-    survival_data_dates['FollowupDate'] = pd.to_datetime(survival_data_dates['FollowupDate'])
-    survival_data_dates['DeathDate'] = pd.to_datetime(survival_data_dates['DeathDate'])
-
-    fp_samples.columns=["SampleID"]
-    fp_samples["SampleID"] = fp_samples["SampleID"].str.replace("_fragment_size_summary.csv", "")
-    fp_samples["Patient"]=fp_samples["SampleID"].str[9:12].str.lstrip('0')
-    fp_samples["Patient"] = fp_samples["Patient"].apply(int)
-
-
-    survival_data["Patient"] = survival_data["id"].values
-    survival_data["Patient"] = survival_data["Patient"].apply(int)
-
-    meta_survival_data = pd.merge(fp_samples,survival_data, how="left", on="Patient")
-    meta_survival_data["BPFS"] = meta_survival_data["PFStime"] * 12 * 30
-    meta_survival_data["status"] = meta_survival_data["PFSevent"]
-    meta_survival_data = meta_survival_data[["SampleID", "status", "BPFS"]]
-    meta_survival_data["BPFS"] = meta_survival_data["BPFS"]*12*30
-    meta_survival_data.to_csv("/Users/alexandra/PhD/PearlStudy/FragmentationPatterns/Pearl_survival.csv", sep="\t",
-                              index=False, header=True)
+    meta_survival_data = pd.read_csv("/Users/alexandra/PhD/PearlStudy/FragmentationPatterns/Pearl_survival_david.csv", sep=",")
 
     pearl = pd.read_csv("/Users/alexandra/PhD/FragmentationPatterns/Data/MetaData/PearlStudyMetaData.csv", sep="\t")
     pearl_cols = pearl.columns
@@ -134,7 +136,7 @@ def meta_data_Pearl_new():
 
     print("Done gathering data for Pearl")
 
-# meta_data_Pearl()
+meta_data_Pearl_new()
 
 def meta_data_healthy():
     print("Gather data for healthy")

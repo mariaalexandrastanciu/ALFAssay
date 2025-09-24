@@ -1,5 +1,7 @@
 # Created by alexandra at 03/04/2025
 import pandas as pd
+from statsmodels.nonparametric.smoothers_lowess import lowess
+
 import CONSTANTS as c
 import glob
 import utils as u
