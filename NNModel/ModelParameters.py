@@ -8,7 +8,7 @@ learning_rate = 1e-5
 lr_scheduler_reduce = 0.08
 learn_sum = False
 LOG = False
-batch_size = 90
+batch_size = 40
 
 # cross-validation
 cv = 5

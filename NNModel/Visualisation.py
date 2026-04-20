@@ -36,7 +36,7 @@ def draw_result(lst_iter, lst_train, lst_test,title):
     plt.legend(loc='upper left')
     plt.title(title_fig)
     # save image
-    plt.savefig("plots/" + title+".png")
+    plt.savefig("NNModel/plots/" + title+".png")
     plt.clf()
 
 

@@ -1,11 +1,8 @@
 # Created by alexandra at 08/09/2023
-# Created by alexandra at 28/07/2023
 from torch.utils.data import Dataset, DataLoader
 import torch as t
 import numpy as np
-import CONSTANTS as c
-from sklearn.preprocessing import MinMaxScaler
-# (PatientId, Label, ctDNADetected, VAFg0p001) = range(4)
+from . import CONSTANTS as c
 
 
 def dataWrapper(batch_size, num_workers, data, shuffle=False):

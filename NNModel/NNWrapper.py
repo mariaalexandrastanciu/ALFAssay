@@ -1,28 +1,20 @@
 # Created by alexandra at 21/08/2023
 
-from torch.utils.data import DataLoader
-import DataWrapperNN as dwnn
-import ModelParameters as MP
+from . import DataWrapperNN as dwnn
 import time
-import utils as u
+from . import utils as u
 import numpy as np
 import torch as t
-from Logger import MetaLogger
-import pickle
-from sklearn.preprocessing import MinMaxScaler
-from sklearn import preprocessing
-from helper_functions import plot_predictions, plot_decision_boundary
-import matplotlib.pyplot as plt
+from . import Logger
 
 
 class NNWrapper:
-    def __init__(self, MainModel, losses, target_transform):
+    def __init__(self, MainModel, losses):
         self.model = MainModel
         self.losses = losses
         self.dev = MainModel.dev
-        self.target_transform = target_transform
 
-    def predict(self, input_data, batch_size):
+    def predict(self, input_data):
         self.model.eval()  # removes the noise inserted by dropouts
 
         # duplicates random input data such that batch size to be multiple of sample size
@@ -57,7 +49,7 @@ class NNWrapper:
             # loss = t.nn.MSELoss()
             # loss_tensor = loss(predicted, truth)
 
-            predicted_original = self.target_transform.inverse_transform(predicted.data.cpu().numpy().reshape(-1, 1)).squeeze()
+
             pred_ys.append(predicted)  #[t.round(t.mean(predicted_arm_labels))]
             patientIds.append(sampleNames)
             ctDNADetectionList.append(truth)
@@ -75,7 +67,7 @@ class NNWrapper:
             weight_decay=1e-2, learning_rate=1e-3, LOG=True, learn_sum=False):
 
         if LOG:
-            self.logger = MetaLogger(self.model, port=6001)
+            self.logger = Logger.MetaLogger(self.model, port=6001)
 
         ### data loader ###
         input_data = dwnn.batch_padding(input_data, batch_size)
@@ -152,8 +144,8 @@ class NNWrapper:
             if epoch_iteration % 100 == 0:
                 # print(np.mean(epoch_losses))
                 print(" train epoch ", epoch_iteration, "; loss mean=", np.mean(epoch_losses))
-                print("\ntruth train: \n" , truth_list)
-                print("\npredicted train: \n",  predicted_list)
+                # print("\ntruth train: \n" , truth_list)
+                # print("\npredicted train: \n",  predicted_list)
                 # print(" epoch ", epoch_iteration, "time", round(end - start, 2))
                 # print("train param :", list(self.model.parameters()))
             end = time.time()
@@ -164,7 +156,7 @@ class NNWrapper:
 
             epoch_iteration += 1
             all_losses += [np.mean(epoch_losses)]
-        print(" last train epoch ", epoch_iteration, "; loss mean=", np.mean(last_epoch_loss))
+        # print(" last train epoch ", epoch_iteration, "; loss mean=", np.mean(last_epoch_loss))
         # print("last losses on train", last_epoch_loss)
         # print("\ntruth train: \n", truth_list)
         # print("\npredicted train: \n", predicted_list)
@@ -174,25 +166,6 @@ class NNWrapper:
 
     def get_params(self, deep=False):
         return {}
-
-        # def auto_encoder_train():
-        #     autoencoder = MLPRegressor(hidden_layer_sizes=(100, 50, 20, 50, 100),
-        #            ß                    random_state=1, max_iter=20000)
-
-    def correct_data(self, fragments):
-        with open('models/autoencoderDenoising.pkl', 'rb') as f:
-            denoising = pickle.load(f)
-
-        fragments_corrected = fragments - denoising.predict(fragments)
-
-        # fragments_corrected_unscaled = scaler.inverse_transform(fragments_corrected)
-
-        return fragments_corrected.view(1, 2, 204)
-
-    def calculate_ratio(self, fragments):
-        eps = 0.001
-        short_over_all = fragments[:, 1]/(fragments[:, 0]+eps)
-        return short_over_all
 
     def get_model(self):
         return self.model

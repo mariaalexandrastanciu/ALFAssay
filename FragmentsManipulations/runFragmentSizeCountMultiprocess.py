@@ -3,7 +3,7 @@ import argparse
 import multiprocessing
 import time
 
-import helpers.CONSTANTS as CONSTANTS
+import FeatureEngineering.CONSTANTS as CONSTANTS
 from FragmentsManipulations import FragmentSizeCountMultiprocess as fscm
 
 # Parse command line arguments ###################################################################################

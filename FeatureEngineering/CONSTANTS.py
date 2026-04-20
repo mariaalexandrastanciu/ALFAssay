@@ -1,18 +1,18 @@
 # Created by alexandra at 21/11/2022
 (PatientId, Label, ichorTF, timepoint, VAF, ctDNADetected, status, OSF, VAFg0p001) = range(9)
-# chromosomes = ["chr1", "chr2", "chr3", "chr4", "chr5", "chr6", "chr7", "chr8", "chr9", "chr10", "chr11", "chr12",
-#                "chr13", "chr14", "chr15", "chr16", "chr17", "chr18", "chr19", "chr20", "chr21", "chr22"]
+chromosomes = ["chr1", "chr2", "chr3", "chr4", "chr5", "chr6", "chr7", "chr8", "chr9", "chr10", "chr11", "chr12",
+               "chr13", "chr14", "chr15", "chr16", "chr17", "chr18", "chr19", "chr20", "chr21", "chr22"]
 
 chromosomes_dict = {"chr1":0, "chr2":1, "chr3":2, "chr4":3, "chr5":4, "chr6":5, "chr7":6, "chr8":7, "chr9":8, "chr10":9,
                     "chr11":10, "chr12":11, "chr13":12, "chr14":13, "chr15":14, "chr16":15, "chr17":16, "chr18":17,
                     "chr19":18, "chr20":19, "chr21":20, "chr22":21}
-chromosomes = ["chr19", "chr21"]
+# chromosomes = ["chr19", "chr21"]
 #  removed in DELFI: 13p,14p,15p,21p,22p
-# chr_arms = ["1p", "1q", "2p", "2q", "3p", "3q", "4p", "4q", "5p", "5q", "6p", "6q",
-#             "7p", "7q", "8p", "8q", "9p", "9q", "10p", "10q", "11p", "11q", "12p",
-#             "12q", "13p", "13q", "14p", "14q", "15p", "15q", "16p", "16q", "17p", "17q", "18p", "18q",
-#              "19p", "19q", "20p", "20q", "21p", "21q", "22p", "22q"]
-chr_arms = ["19p", "19q", "21p", "21q"]
+chr_arms = ["1p", "1q", "2p", "2q", "3p", "3q", "4p", "4q", "5p", "5q", "6p", "6q",
+            "7p", "7q", "8p", "8q", "9p", "9q", "10p", "10q", "11p", "11q", "12p",
+            "12q", "13p", "13q", "14p", "14q", "15p", "15q", "16p", "16q", "17p", "17q", "18p", "18q",
+             "19p", "19q", "20p", "20q", "21p", "21q", "22p", "22q"]
+# chr_arms = ["19p", "19q", "21p", "21q"]
 
 non_somatic_chr = ["chrX", "chrM", "chrY"]
 

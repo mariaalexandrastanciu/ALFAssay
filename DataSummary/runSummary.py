@@ -2,7 +2,7 @@
 import summaryPerSample as sS
 from scipy.stats import ks_2samp
 import DataWrapper as DW
-from helpers import CONSTANTS as C
+from FeatureEngineering import CONSTANTS as C
 
 #create data
 genome_version = "hg38"
