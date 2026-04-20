@@ -1,5 +1,4 @@
 # Created by alexandra at 25/08/2023
-# Created by alexandra at 18/11/2022
 import glob
 import os
 import time
@@ -8,8 +7,7 @@ import numpy as np
 import pandas as pd
 import pyranges as pr
 import pysam as pysam
-import itertools
-from helpers import CONSTANTS
+from FeatureEngineering import CONSTANTS
 import subprocess
 try:
     from Bio.SeqUtils import gc_fraction
@@ -216,12 +214,10 @@ def window_fragment_size_calculation(fragments, chromosome, count_range, window_
         i = 0
         for counts in count_range:
             if counts in diff:
-                print("For count: " + str(counts) + " and for iteration " + str(i) + " it is missing")
                 genome_fragment_length_counts = pd.DataFrame(np.column_stack((np.asarray([0] * len(tiled_genome_chr)).T,
                                                                               np.asarray(
                                                                                   [0] * len(tiled_genome_chr)).T)),
                                                              columns=["fragment_size_exists", "NoSNPs"])
-                print(genome_fragment_length_counts["fragment_size_exists"].T.values.tolist())
                 fragment_sizes_counts = genome_fragment_length_counts["fragment_size_exists"].T.values.tolist()
                 fragment_sizes_mutations = genome_fragment_length_counts["NoSNPs"].T.values.tolist()
                 # i = max(0, i - 1)
@@ -300,7 +296,6 @@ def task_per_chr(bam, chromosome, mutations, cnas, col_names, count_range, csv_f
                  specific_regions_flag, specific_regions_chr_df, target_population, hg38_bins,
                  filename_nn):
     mutations_on_chr = mutations[mutations["Chromosome"] == chromosome]
-    cnas_on_chr = cnas[cnas["Chromosome"] == chromosome]
     no_mutations_on_chr = len(mutations_on_chr.index)
     nr_lines = 100000
     write_mode = "w"
@@ -314,7 +309,6 @@ def task_per_chr(bam, chromosome, mutations, cnas, col_names, count_range, csv_f
     for read in bam.fetch(chromosome):
         pos_no = pos_no + 1
         mutation_at_this_pos = 0
-        cnas_at_this_pos = 0
         # keep only mapped reads with above threshold quality and consider only forward reads and keep fragments
         # between 30 and 700 - we cannot guarantee the qualities outside this interval(??)
         if read.mapping_quality >= mapping_quality and read.is_proper_pair:
